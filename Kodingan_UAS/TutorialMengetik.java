@@ -14,7 +14,6 @@ import java.util.Map;
 
 public class TutorialMengetik extends JFrame 
 {
-
     private JTextArea textArea;
     private Map<String, JButton> keyMap;
     private final Color originalColor = new JButton().getBackground();
@@ -24,13 +23,13 @@ public class TutorialMengetik extends JFrame
     {
         // Mengatur frame
         setTitle("Aplikasi Mengetik - Bariq Nashir Musad");
-        setSize(1200, 600);
+        setSize(1000, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout(10, 10));
 
         // Membuat area teks
         textArea = new JTextArea();
-        textArea.setFont(new Font("Arial", Font.PLAIN, 36));
+        textArea.setFont(new Font("Arial", Font.PLAIN, 24));
         textArea.setEditable(false);
         add(new JScrollPane(textArea), BorderLayout.CENTER);
 
@@ -64,7 +63,7 @@ public class TutorialMengetik extends JFrame
             {"Tab", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]", "\\"},
             {"Caps", "A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "'", "Enter"},
             {"Shift", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "/", "Shift"},
-            {"Ctrl", "Fn", "Alt", "Space", "Alt", "Ctrl", "Left", "Up", "Down", "Right"}
+            {"Ctrl", "Fn", "Alt", "Space", "Alt", "Ctrl"}
         };
 
         // Membuat tombol keyboard dan menambahkannya ke panel dan peta
@@ -76,13 +75,16 @@ public class TutorialMengetik extends JFrame
                 if (!keyTexts[row][col].isEmpty()) 
                 {
                     JButton button = new JButton(keyTexts[row][col]);
-                    button.setFont(new Font("Arial", Font.PLAIN, 24));
+                    button.setFont(new Font("Arial", Font.PLAIN, 16));
+                    button.setHorizontalAlignment(SwingConstants.CENTER);
+                    button.setVerticalAlignment(SwingConstants.CENTER);
                     gbc.gridx = col;
                     gbc.gridy = row;
                     gbc.gridwidth = 1;
                     gbc.gridheight = 1;
                     gbc.weightx = 1.0;
                     gbc.weighty = 1.0;
+                    gbc.insets = new Insets(2, 2, 2, 2); // Margin antar tombol
                     gbc.fill = GridBagConstraints.BOTH;
 
                     // Mengatur lebar tombol tertentu
@@ -100,7 +102,7 @@ public class TutorialMengetik extends JFrame
                             gbc.gridwidth = 1;
                             break;
                         case "Space":
-                            gbc.gridwidth = 4;
+                            gbc.gridwidth = 3;
                             break;
                     }
 
@@ -110,8 +112,10 @@ public class TutorialMengetik extends JFrame
             }
         }
 
-        // Menambahkan panel keyboard ke frame
-        add(keyboardPanel, BorderLayout.SOUTH);
+        // Menambahkan panel keyboard ke frame dan merapikan layout di tengah
+        JPanel keyboardContainer = new JPanel(new GridBagLayout());
+        keyboardContainer.add(keyboardPanel, new GridBagConstraints());
+        add(keyboardContainer, BorderLayout.SOUTH);
 
         // Menambahkan KeyListener untuk menangani penekanan tombol
         textArea.addKeyListener(new KeyAdapter() 
@@ -142,27 +146,6 @@ public class TutorialMengetik extends JFrame
                             break;
                         case KeyEvent.VK_SPACE:
                             textArea.append(" ");
-                            break;
-                        case KeyEvent.VK_DELETE:
-                            text = textArea.getText();
-                            int caretPos = textArea.getCaretPosition();
-                            if (caretPos < text.length()) 
-                            {
-                                textArea.setText(text.substring(0, caretPos) + text.substring(caretPos + 1));
-                                textArea.setCaretPosition(caretPos);
-                            }
-                            break;
-                        case KeyEvent.VK_LEFT:
-                            textArea.setCaretPosition(Math.max(0, textArea.getCaretPosition() - 1));
-                            break;
-                        case KeyEvent.VK_RIGHT:
-                            textArea.setCaretPosition(Math.min(textArea.getText().length(), textArea.getCaretPosition() + 1));
-                            break;
-                        case KeyEvent.VK_UP:
-                            textArea.setCaretPosition(0); // Pindahkan kursor ke awal teks
-                            break;
-                        case KeyEvent.VK_DOWN:
-                            textArea.setCaretPosition(textArea.getText().length()); // Pindahkan kursor ke akhir teks
                             break;
                         default:
                             textArea.append(String.valueOf(e.getKeyChar()));
@@ -195,4 +178,4 @@ public class TutorialMengetik extends JFrame
             new TutorialMengetik();
         });
     }
-} // akhir kelas
+} //akhir kelas
