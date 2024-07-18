@@ -9,11 +9,12 @@ import java.util.Map;
 
 /**
  * Soal membuat aplikasi
- * @Author Bariq Nashir Musad 18/07-2024
+ * @author Bariq 18/07-2024
  */
 
 public class TutorialMengetik extends JFrame 
 {
+
     private JTextArea textArea;
     private Map<String, JButton> keyMap;
     private final Color originalColor = new JButton().getBackground();
@@ -59,11 +60,11 @@ public class TutorialMengetik extends JFrame
         // Teks tombol keyboard
         String[][] keyTexts = 
         {
-            {"~", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspace"},
+            {"`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspace"},
             {"Tab", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]", "\\"},
             {"Caps", "A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "'", "Enter"},
             {"Shift", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "/", "Shift"},
-            {"", "", "", "Space", "", "", "", "", "", "", "", ""},
+            {"Ctrl", "Fn", "Alt", "Space", "Alt", "Ctrl", "Left", "Up", "Down", "Right"}
         };
 
         // Membuat tombol keyboard dan menambahkannya ke panel dan peta
@@ -92,14 +93,14 @@ public class TutorialMengetik extends JFrame
                             break;
                         case "Tab":
                         case "Caps":
-                            gbc.gridwidth = 1;
-                            break;
                         case "Enter":
                         case "Shift":
-                            gbc.gridwidth = 2;
+                        case "Ctrl":
+                        case "Alt":
+                            gbc.gridwidth = 1;
                             break;
                         case "Space":
-                            gbc.gridwidth = 6;
+                            gbc.gridwidth = 4;
                             break;
                     }
 
@@ -107,39 +108,6 @@ public class TutorialMengetik extends JFrame
                     keyMap.put(keyTexts[row][col], button);
                 }
             }
-        }
-
-        // Menambahkan tombol panah ke pojok kanan bawah
-        String[] arrowKeys = {"Up", "Left", "Down", "Right"};
-        JButton[] arrowButtons = new JButton[4];
-        for (int i = 0; i < arrowKeys.length; i++) 
-        {
-            arrowButtons[i] = new JButton(arrowKeys[i]);
-            arrowButtons[i].setFont(new Font("Arial", Font.PLAIN, 24));
-        }
-
-        // Menempatkan tombol panah di pojok kanan bawah
-        gbc.gridwidth = 1;
-        gbc.gridx = 10;
-        gbc.gridy = 4;
-        keyboardPanel.add(arrowButtons[0], gbc); // Up
-
-        gbc.gridx = 9;
-        gbc.gridy = 5;
-        keyboardPanel.add(arrowButtons[1], gbc); // Left
-
-        gbc.gridx = 10;
-        gbc.gridy = 5;
-        keyboardPanel.add(arrowButtons[2], gbc); // Down
-
-        gbc.gridx = 11;
-        gbc.gridy = 5;
-        keyboardPanel.add(arrowButtons[3], gbc); // Right
-
-        // Menambahkan tombol panah ke peta
-        for (JButton button : arrowButtons) 
-        {
-            keyMap.put(button.getText(), button);
         }
 
         // Menambahkan panel keyboard ke frame
